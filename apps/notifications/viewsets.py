@@ -6,22 +6,18 @@ from .models import Notification
 from .serializers import NotificationSerializer
 
 
-def generate_email_content(user, event):
-    content = f"Hello {user.username},\n\nYou have a new notification:\n\n{event}\n\nThank you for using our app!"
-    return content
-
 
 class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 
     def perform_create(self, serializer):
+        serializer.recipient = self.request.user
+        serializer.status = 1
         notification = serializer.save()
         subject = notification.subject
         recipient = notification.recipient
-        content = generate_email_content(
-            recipient,
-        )
+        content = notification.content
         send_mail(
             subject,
             content,
