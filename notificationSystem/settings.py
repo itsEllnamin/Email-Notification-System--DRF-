@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework',
-    'apps.notifications',
+    'rest_framework.authtoken',
     'apps.accounts',
+    'apps.events',
 ]
 
 MIDDLEWARE = [
@@ -76,10 +77,25 @@ WSGI_APPLICATION = "notificationSystem.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',
+#         'NAME': 'db_drf',
+#         'USER': 'root',
+#         'PASSWORD': '',         # Provide your password
+#         'HOST': 'localhost',
+#         'PORT': '3306'
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'db_drf',
+        'USER': 'root',
+        'PASSWORD': 'Hm@rEbsl357678',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
@@ -112,7 +128,7 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -120,7 +136,40 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Mailing
+# https://mailtrap.io/
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'ellnamin.personal@gmail.com'
+# EMAIL_HOST_USER = '2372e51ed41759'
+# EMAIL_HOST_PASSWORD = '71744e060eaca5'
+# EMAIL_PORT = '2525'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ''             # U can use 'smtp.mailtrap.io' for testing
+DEFAULT_FROM_EMAIL = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = ''             # use '2525' if used provided email host
+EMAIL_USE_TLS = True
+
+
+# RestFramework
+# https://www.django-rest-framework.org/api-guide/authentication/
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
