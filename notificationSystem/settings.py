@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from os import path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,7 +59,7 @@ ROOT_URLCONF = "notificationSystem.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -77,12 +78,23 @@ WSGI_APPLICATION = "notificationSystem.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',
+#         'NAME': 'db_drf',
+#         'USER': 'root',
+#         'PASSWORD': '',         # Provide your password
+#         'HOST': 'localhost',
+#         'PORT': '3306'
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
         'NAME': 'db_drf',
         'USER': 'root',
-        'PASSWORD': '',         # Provide your password
+        'PASSWORD': 'Hm@rEbsl357678',
         'HOST': 'localhost',
         'PORT': '3306'
     }
@@ -136,12 +148,20 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://mailtrap.io/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''             # U can use 'smtp.mailtrap.io' for testing
-DEFAULT_FROM_EMAIL = ''
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = ''             # use '2525' if used provided email host
+EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'ellnamin.personal@gmail.com'
+EMAIL_HOST_USER = '2372e51ed41759'
+EMAIL_HOST_PASSWORD = '71744e060eaca5'
+EMAIL_PORT = '2525'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = ''             # U can use 'smtp.mailtrap.io' for testing
+# DEFAULT_FROM_EMAIL = ''
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_PORT = ''             # use '2525' if used provided email host
+# EMAIL_USE_TLS = True
 
 
 # RestFramework

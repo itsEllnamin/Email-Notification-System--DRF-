@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from .serializers import EventSerializer, SendMailSerializer
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from .models import Event
 from rest_framework.decorators import action
 from django.conf import settings
@@ -26,11 +27,13 @@ class EventViewSet(viewsets.ModelViewSet):
         subject = data.get('subject')
         content = data.get('content')
         emails = data.get('emails')
+        html_message = render_to_string('email_template.html', {'content': content})
         send_mail(
             subject,
             content,
             settings.DEFAULT_FROM_EMAIL,
             recipient_list=emails,
             fail_silently=False,
+            html_message=html_message
             )
         return Response(serializer.data, status=status.HTTP_200_OK)
